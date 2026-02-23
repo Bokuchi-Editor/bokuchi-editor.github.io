@@ -1,0 +1,45 @@
+---
+import { ui, defaultLocale, type Locale } from '../i18n/ui';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ?? key;
+---
+
+<section class="hero section">
+  <div class="container">
+    <img class="hero-icon" src="/bokuchi-icon.png" alt="Bokuchi" width="96" height="96" />
+    <h1>{t('hero.tagline')}</h1>
+    <p class="sub">{t('hero.sub')}</p>
+    <div class="cta">
+      <a href="#download" class="btn btn-primary" id="hero-download-btn">
+        {t('hero.download.macos')}
+      </a>
+    </div>
+    <img class="screenshot" src="/screenshots/1.png" alt="Bokuchi editor with split view" width="900" height="540" />
+  </div>
+</section>
+
+<script>
+  // OS detection for download button label
+  const ua = typeof navigator !== 'undefined' ? navigator.userAgent : '';
+  const isMac = /Mac|iPhone|iPad/i.test(ua);
+  const isWin = /Windows|Win32/i.test(ua);
+  const isLinux = /Linux|X11/i.test(ua) && !/Android/i.test(ua);
+
+  const btn = document.getElementById('hero-download-btn');
+  if (btn) {
+    const lang = document.documentElement.lang;
+    if (lang === 'ja') {
+      if (isMac) btn.textContent = 'macOS 用をダウンロード';
+      else if (isWin) btn.textContent = 'Windows 用をダウンロード';
+      else if (isLinux) btn.textContent = 'Linux 用をダウンロード';
+      else btn.textContent = 'ダウンロード';
+    } else {
+      if (isMac) btn.textContent = 'Download for macOS';
+      else if (isWin) btn.textContent = 'Download for Windows';
+      else if (isLinux) btn.textContent = 'Download for Linux';
+      else btn.textContent = 'Download';
+    }
+  }
+</script>

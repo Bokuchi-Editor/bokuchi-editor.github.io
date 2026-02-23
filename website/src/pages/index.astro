@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import WhyBokuchi from '../components/WhyBokuchi.astro';
+import Features from '../components/Features.astro';
+import ThemeGallery from '../components/ThemeGallery.astro';
+import SupportedLanguages from '../components/SupportedLanguages.astro';
+import Download from '../components/Download.astro';
+
+const title = 'Bokuchi - Free Lightweight Markdown Editor for macOS, Windows & Linux';
+const description = 'A free, fast, and lightweight Markdown editor built with Tauri and Rust. Real-time preview, multi-tab editing, variable system, and 14 languages supported.';
+---
+
+<Layout
+  title={title}
+  description={description}
+  lang="en"
+  locale="en"
+  canonicalURL={new URL(Astro.url.pathname, Astro.site)}
+>
+  <Hero locale="en" />
+  <WhyBokuchi locale="en" />
+  <Features locale="en" />
+  <ThemeGallery locale="en" />
+  <SupportedLanguages locale="en" />
+  <Download locale="en" />
+</Layout>

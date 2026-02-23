@@ -1,0 +1,71 @@
+---
+import { ui, defaultLocale, type Locale } from '../i18n/ui';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ?? key;
+
+const REPO = 'Bokuchi-Editor/bokuchi';
+const RELEASES_URL = `https://github.com/${REPO}/releases`;
+---
+
+<section class="section download-section" id="download">
+  <div class="container">
+    <h2 class="section-title">{t('download.title')}</h2>
+    <div class="download-buttons" id="download-buttons">
+      <a href={RELEASES_URL} class="btn btn-primary" id="dl-primary" target="_blank" rel="noopener noreferrer">
+        {t('download.latest')} — {t('hero.download.macos')}
+      </a>
+      <a href={RELEASES_URL} class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+        {t('download.other')}
+      </a>
+    </div>
+    <p class="other-platforms">
+      <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer">{t('download.other')}</a> · GitHub Releases
+    </p>
+  </div>
+</section>
+
+<script define:vars={{ REPO }}>
+  (async function () {
+    const primary = document.getElementById('dl-primary');
+    if (!primary) return;
+    const lang = document.documentElement.lang;
+    const labels = {
+      ja: { mac: 'macOS 用をダウンロード', win: 'Windows 用をダウンロード', linux: 'Linux 用をダウンロード' },
+      en: { mac: 'Download for macOS', win: 'Download for Windows', linux: 'Download for Linux' },
+    };
+    const t = labels[lang === 'ja' ? 'ja' : 'en'];
+    const ua = navigator.userAgent;
+    const isMac = /Mac|iPhone|iPad/i.test(ua);
+    const isWin = /Windows|Win32/i.test(ua);
+    const isLinux = /Linux|X11/i.test(ua) && !/Android/i.test(ua);
+    let label = t.mac;
+    let href = `https://github.com/${REPO}/releases`;
+    try {
+      const res = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
+      const data = await res.json();
+      if (data.assets && data.assets.length > 0) {
+        const name = (n) => n.toLowerCase();
+        const macArm = data.assets.find((a) => name(a.name).includes('aarch64') || name(a.name).includes('arm64'));
+        const macIntel = data.assets.find((a) => name(a.name).includes('x64') && name(a.name).includes('darwin'));
+        const macDmg = data.assets.find((a) => name(a.name).endsWith('.dmg'));
+        const winMsi = data.assets.find((a) => name(a.name).endsWith('.msi'));
+        const winExe = data.assets.find((a) => name(a.name).endsWith('.exe'));
+        const linuxApp = data.assets.find((a) => name(a.name).includes('appimage') || name(a.name).includes('.deb'));
+        if (isMac && (macArm || macIntel || macDmg)) href = (macArm || macIntel || macDmg).browser_download_url;
+        else if (isWin && (winMsi || winExe)) {
+          href = (winMsi || winExe).browser_download_url;
+          label = t.win;
+        } else if (isLinux && linuxApp) {
+          href = linuxApp.browser_download_url;
+          label = t.linux;
+        } else if (isMac) label = t.mac;
+        else if (isWin) label = t.win;
+        else if (isLinux) label = t.linux;
+      }
+    } catch (_) {}
+    primary.textContent = label;
+    primary.href = href;
+  })();
+</script>

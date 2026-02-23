@@ -1,0 +1,27 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import WhyBokuchi from '../../components/WhyBokuchi.astro';
+import Features from '../../components/Features.astro';
+import ThemeGallery from '../../components/ThemeGallery.astro';
+import SupportedLanguages from '../../components/SupportedLanguages.astro';
+import Download from '../../components/Download.astro';
+
+const title = 'Bokuchi - 無料・軽量マークダウンエディタ（macOS / Windows / Linux）';
+const description = 'Tauri と Rust で作られた無料・高速・軽量のマークダウンエディタ。リアルタイムプレビュー、マルチタブ、変数システム、14言語対応。';
+---
+
+<Layout
+  title={title}
+  description={description}
+  lang="ja"
+  locale="ja"
+  canonicalURL={new URL(Astro.url.pathname, Astro.site)}
+>
+  <Hero locale="ja" />
+  <WhyBokuchi locale="ja" />
+  <Features locale="ja" />
+  <ThemeGallery locale="ja" />
+  <SupportedLanguages locale="ja" />
+  <Download locale="ja" />
+</Layout>

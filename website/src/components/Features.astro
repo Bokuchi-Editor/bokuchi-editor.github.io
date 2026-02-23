@@ -1,0 +1,41 @@
+---
+import { ui, defaultLocale, type Locale } from '../i18n/ui';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ?? key;
+
+const features = [
+  { id: 'preview', img: 1, titleKey: 'features.preview', descKey: 'features.preview.desc' },
+  { id: 'tabs', img: 2, titleKey: 'features.tabs', descKey: 'features.tabs.desc', reverse: true },
+  { id: 'variables', img: 3, titleKey: 'features.variables', descKey: 'features.variables.desc' },
+  { id: 'search', img: 4, titleKey: 'features.search', descKey: 'features.search.desc', reverse: true },
+  { id: 'themes', img: 5, titleKey: 'features.themes', descKey: 'features.themes.desc' },
+  { id: 'settings', imgs: ['10-1', '10-2'], titleKey: 'features.settings', descKey: 'features.settings.desc', reverse: true },
+] as const;
+---
+
+<section class="section" id="features">
+  <div class="container">
+    <h2 class="section-title">{t('features.title')}</h2>
+    {features.map((f) => (
+      <div class={`feature-row ${f.reverse ? 'reverse' : ''}`}>
+        <div class="text">
+          <h3>{t(f.titleKey)}</h3>
+          <p>{t(f.descKey)}</p>
+        </div>
+        <div class="screenshot">
+          {'img' in f && f.img != null ? (
+            <img src={`/screenshots/${f.img}.png`} alt="" width="600" height="360" />
+          ) : 'imgs' in f && f.imgs ? (
+            <div class="screenshots-pair">
+              {f.imgs.map((name) => (
+                <img src={`/screenshots/${name}.png`} alt="" width="400" height="240" />
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

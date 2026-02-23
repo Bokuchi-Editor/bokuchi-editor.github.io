@@ -1,0 +1,29 @@
+---
+import { ui, defaultLocale, type Locale } from '../i18n/ui';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ?? key;
+
+const themes = [
+  { img: 5, key: 'themes.default' },
+  { img: 6, key: 'themes.dark' },
+  { img: 7, key: 'themes.pastel' },
+  { img: 8, key: 'themes.vivid' },
+  { img: 9, key: 'themes.darcula' },
+] as const;
+---
+
+<section class="section" id="themes">
+  <div class="container">
+    <h2 class="section-title">{t('themes.title')}</h2>
+    <div class="theme-grid">
+      {themes.map((th) => (
+        <div class="theme-item">
+          <img src={`/screenshots/${th.img}.png`} alt={t(th.key)} width="400" height="240" />
+          <div class="label">{t(th.key)}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,42 @@
+---
+import { ui, defaultLocale, type Locale } from '../i18n/ui';
+
+// From https://github.com/Bokuchi-Editor/bokuchi/blob/main/README.md
+const languages: { code: string; nameEn: string; nameNative: string }[] = [
+  { code: 'en', nameEn: 'English', nameNative: 'English' },
+  { code: 'ja', nameEn: 'Japanese', nameNative: '日本語' },
+  { code: 'zh-CN', nameEn: 'Chinese (Simplified)', nameNative: '中文 (简体)' },
+  { code: 'zh-Hant', nameEn: 'Chinese (Traditional)', nameNative: '中文 (繁體)' },
+  { code: 'es', nameEn: 'Spanish', nameNative: 'Español' },
+  { code: 'hi', nameEn: 'Hindi', nameNative: 'हिन्दी' },
+  { code: 'ru', nameEn: 'Russian', nameNative: 'Русский' },
+  { code: 'ko', nameEn: 'Korean', nameNative: '한국어' },
+  { code: 'pt-BR', nameEn: 'Portuguese (Brazil)', nameNative: 'Português (Brasil)' },
+  { code: 'ar', nameEn: 'Arabic', nameNative: 'العربية' },
+  { code: 'fr', nameEn: 'French', nameNative: 'Français' },
+  { code: 'de', nameEn: 'German', nameNative: 'Deutsch' },
+  { code: 'id', nameEn: 'Indonesian', nameNative: 'Bahasa Indonesia' },
+  { code: 'vi', nameEn: 'Vietnamese', nameNative: 'Tiếng Việt' },
+];
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ?? key;
+---
+
+<section class="section" id="languages">
+  <div class="container">
+    <h2 class="section-title">{t('languages.title')}</h2>
+    <p class="section-sub languages-intro">{t('languages.intro')}</p>
+    <ul class="languages-list">
+      {languages.map((lang) => (
+        <li class="languages-list-item" dir="auto">
+          <span class="languages-list-native" lang={lang.code}>{lang.nameNative}</span>
+          {locale === 'en' && lang.nameNative !== lang.nameEn && (
+            <span class="languages-list-en"> — {lang.nameEn}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+---
+import { ui, defaultLocale, type Locale } from '../i18n/ui';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ?? key;
+---
+
+<section class="section" id="why">
+  <div class="container">
+    <h2 class="section-title">{t('why.title')}</h2>
+    <div class="why-cards">
+      <div class="why-card">
+        <div class="icon" aria-hidden="true">🪶</div>
+        <h3>{t('why.lightweight')}</h3>
+        <p>{t('why.lightweight.desc')}</p>
+      </div>
+      <div class="why-card">
+        <div class="icon" aria-hidden="true">⚡</div>
+        <h3>{t('why.fast')}</h3>
+        <p>{t('why.fast.desc')}</p>
+      </div>
+      <div class="why-card">
+        <div class="icon" aria-hidden="true">🌐</div>
+        <h3>{t('why.cross')}</h3>
+        <p>{t('why.cross.desc')}</p>
+      </div>
+    </div>
+  </div>
+</section>
