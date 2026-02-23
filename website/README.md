@@ -1,14 +1,14 @@
-# Bokuchi 公式サイト（Astro プロジェクト）
+# Bokuchi Official Website (Astro)
 
-このフォルダは [Bokuchi](https://github.com/Bokuchi-Editor/bokuchi) 公式 LP の Astro プロジェクトです。
+This folder contains the Astro project for the [Bokuchi](https://github.com/Bokuchi-Editor/bokuchi) landing page.
 
-**ローカル起動・GitHub Pages の設定などはリポジトリルートの [README.md](../README.md) を参照してください。**
+**For local setup, GitHub Pages configuration, and more, see the root [README.md](../README.md).**
 
-## コマンド（website 内で実行する場合）
+## Commands (run from this folder)
 
-| コマンド | 説明 |
-|----------|------|
-| `npm install` | 依存関係のインストール |
-| `npm run dev` | 開発サーバー起動（http://localhost:4321） |
-| `npm run build` | 本番ビルド（出力: `dist/`） |
-| `npm run preview` | ビルド結果のローカルプレビュー |
+| Command | Description |
+|---------|-------------|
+| `npm install` | Install dependencies |
+| `npm run dev` | Start dev server (http://localhost:4321) |
+| `npm run build` | Production build (output: `dist/`) |
+| `npm run preview` | Preview the build locally |
