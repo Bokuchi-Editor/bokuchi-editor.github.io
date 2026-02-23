@@ -1,0 +1,251 @@
+---
+import type { T } from '../i18n/en';
+
+interface Props {
+  t: T;
+}
+
+const { t } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <!-- Brand -->
+    <div class="footer__brand">
+      <a href={t.lang === 'ja' ? '/ja/' : '/'} class="footer__logo" aria-label="Bokuchi home">
+        <img src="/bokuchi-icon.png" alt="" width="32" height="32" />
+        <span>Bokuchi</span>
+      </a>
+      <p class="footer__tagline">{t.footer.tagline}</p>
+      <div class="footer__badges">
+        <a
+          href="https://github.com/Bokuchi-Editor/bokuchi/blob/main/LICENSE"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer__badge"
+        >
+          MIT
+        </a>
+        <a
+          href="https://tauri.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer__badge"
+        >
+          Tauri
+        </a>
+        <a
+          href="https://www.rust-lang.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer__badge"
+        >
+          Rust
+        </a>
+      </div>
+    </div>
+
+    <!-- Links -->
+    <div class="footer__links">
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li>
+            <a
+              href="https://github.com/Bokuchi-Editor/bokuchi"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.footer.links.github} ↗
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/Bokuchi-Editor/bokuchi/releases"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.footer.links.releases} ↗
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/Bokuchi-Editor/bokuchi/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.footer.links.issues} ↗
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/Bokuchi-Editor/bokuchi/blob/main/LICENSE"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t.footer.links.license} ↗
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Language + misc -->
+    <div class="footer__meta">
+      <a href={t.nav.langHref} class="footer__lang">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        {t.nav.langLabel}
+      </a>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container">
+      <p>{t.footer.copyright.replace('2025', String(currentYear))}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+.footer {
+  background: var(--color-dark-bg);
+  color: rgba(255, 255, 255, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3rem;
+}
+
+/* Brand */
+.footer__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 0.875rem;
+}
+
+.footer__logo img {
+  border-radius: 6px;
+}
+
+.footer__logo span {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.01em;
+}
+
+.footer__tagline {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.45);
+  max-width: 32ch;
+  margin-bottom: 1.25rem;
+}
+
+.footer__badges {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.footer__badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  transition: all var(--transition-fast);
+}
+
+.footer__badge:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Links */
+.footer__links nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.footer__links nav a {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color var(--transition-fast);
+}
+
+.footer__links nav a:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Meta */
+.footer__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.4375rem 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.footer__lang:hover {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Bottom bar */
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.25rem 0;
+}
+
+.footer__bottom p {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer__inner {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

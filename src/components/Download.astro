@@ -1,0 +1,451 @@
+---
+import type { T } from '../i18n/en';
+
+interface Props {
+  t: T;
+}
+
+const { t } = Astro.props;
+const isJa = t.lang === 'ja';
+---
+
+<section class="section download" id="download" aria-labelledby="download-title">
+  <div class="container">
+    <div class="download__header reveal">
+      <h2 class="section-title" id="download-title">{t.download.sectionTitle}</h2>
+      <p class="section-subtitle">{t.download.sectionSubtitle}</p>
+      <div class="download__version-badge reveal">
+        <span class="download__version-label">{t.download.badge}</span>
+        <span class="version-badge download__version-num">0.4.1</span>
+      </div>
+    </div>
+
+    <!-- Primary OS download -->
+    <div class="download__primary reveal">
+      <a
+        href="https://github.com/Bokuchi-Editor/bokuchi/releases/latest"
+        class="btn btn--primary btn--lg download__main-btn"
+        id="download-primary-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span id="download-primary-label">
+          {isJa ? 'ダウンロード' : 'Download'}
+        </span>
+        <span class="download__format-badge" id="download-primary-format"></span>
+      </a>
+      <p class="download__primary-note" id="download-primary-note">
+        {isJa ? '対応OS: macOS • Windows • Linux' : 'Available for macOS • Windows • Linux'}
+      </p>
+    </div>
+
+    <!-- All platforms -->
+    <div class="download__platforms reveal">
+      <h3 class="download__platforms-title">
+        {t.download.otherPlatforms}
+      </h3>
+      <div class="download__platform-grid">
+        <!-- macOS -->
+        <div class="download__platform-group">
+          <div class="download__platform-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+            </svg>
+          </div>
+          <div class="download__platform-info">
+            <span class="download__platform-name">macOS</span>
+            <div class="download__platform-links">
+              <a
+                href="https://github.com/Bokuchi-Editor/bokuchi/releases/latest"
+                class="download__platform-link"
+                data-platform="macos_arm"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.download.platforms.macos_arm}
+                <span class="download__ext">{t.download.fileFormats.macos_arm}</span>
+              </a>
+              <a
+                href="https://github.com/Bokuchi-Editor/bokuchi/releases/latest"
+                class="download__platform-link"
+                data-platform="macos_intel"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.download.platforms.macos_intel}
+                <span class="download__ext">{t.download.fileFormats.macos_intel}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Windows -->
+        <div class="download__platform-group">
+          <div class="download__platform-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+            </svg>
+          </div>
+          <div class="download__platform-info">
+            <span class="download__platform-name">Windows</span>
+            <div class="download__platform-links">
+              <a
+                href="https://github.com/Bokuchi-Editor/bokuchi/releases/latest"
+                class="download__platform-link"
+                data-platform="windows"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.download.platforms.windows}
+                <span class="download__ext">{t.download.fileFormats.windows}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Linux -->
+        <div class="download__platform-group">
+          <div class="download__platform-icon" aria-hidden="true">
+            <!-- Generic terminal/penguin icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/>
+            </svg>
+          </div>
+          <div class="download__platform-info">
+            <span class="download__platform-name">Linux</span>
+            <div class="download__platform-links">
+              <a
+                href="https://github.com/Bokuchi-Editor/bokuchi/releases/latest"
+                class="download__platform-link"
+                data-platform="linux_appimage"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.download.platforms.linux_appimage}
+                <span class="download__ext">{t.download.fileFormats.linux_appimage}</span>
+              </a>
+              <a
+                href="https://github.com/Bokuchi-Editor/bokuchi/releases/latest"
+                class="download__platform-link"
+                data-platform="linux_deb"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t.download.platforms.linux_deb}
+                <span class="download__ext">{t.download.fileFormats.linux_deb}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="download__releases-link">
+        <a
+          href="https://github.com/Bokuchi-Editor/bokuchi/releases"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="download__all-link"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+          </svg>
+          {t.download.releasesPage} ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{
+  detectPrefix: t.download.detectPrefix,
+  platforms: t.download.platforms,
+  fileFormats: t.download.fileFormats,
+  fallback: t.lang === 'ja' ? 'ダウンロード' : 'Download',
+}}>
+  const REPO = 'Bokuchi-Editor/bokuchi';
+  const API_URL = `https://api.github.com/repos/${REPO}/releases/latest`;
+  const RELEASES_URL = `https://github.com/${REPO}/releases/latest`;
+
+  function detectOS() {
+    const ua = navigator.userAgent;
+    // Apple Silicon detection is tricky via UA — default to arm on Mac
+    if (/Mac/.test(ua)) return 'macos_arm';
+    if (/Win/.test(ua)) return 'windows';
+    if (/Linux/.test(ua)) return 'linux_appimage';
+    return null;
+  }
+
+  function findAssetUrl(assets, pattern) {
+    const asset = assets.find(a => {
+      const name = a.name.toLowerCase();
+      return pattern.every(p => name.includes(p.toLowerCase()));
+    });
+    return asset?.browser_download_url ?? null;
+  }
+
+  async function initDownload() {
+    const primaryBtn = document.getElementById('download-primary-btn');
+    const primaryLabel = document.getElementById('download-primary-label');
+    const primaryFormat = document.getElementById('download-primary-format');
+    const primaryNote = document.getElementById('download-primary-note');
+
+    const os = detectOS();
+
+    // Update primary button label immediately
+    if (os && primaryLabel) {
+      const osDisplayName = {
+        macos_arm: 'macOS',
+        windows: 'Windows',
+        linux_appimage: 'Linux',
+      }[os] ?? '';
+      primaryLabel.textContent = `${detectPrefix} ${osDisplayName}`;
+      if (primaryFormat) {
+        primaryFormat.textContent = fileFormats[os] ?? '';
+      }
+      if (primaryNote) {
+        primaryNote.style.display = 'none';
+      }
+    }
+
+    try {
+      const res = await fetch(API_URL, { headers: { Accept: 'application/vnd.github.v3+json' } });
+      if (!res.ok) throw new Error('API error');
+      const release = await res.json();
+      const assets = release.assets ?? [];
+      const version = release.tag_name ?? '';
+
+      // Update all version badges
+      document.querySelectorAll('.version-badge').forEach(el => {
+        el.textContent = version;
+      });
+
+      // Asset URL map
+      const assetPatterns = {
+        macos_arm: [['aarch64', '.dmg']],
+        macos_intel: [['x64', '.dmg'], ['x86_64', '.dmg']],
+        windows: [['.msi']],
+        linux_appimage: [['.appimage']],
+        linux_deb: [['.deb']],
+      };
+
+      const urls = {};
+      for (const [key, patterns] of Object.entries(assetPatterns)) {
+        for (const pattern of patterns) {
+          const url = findAssetUrl(assets, pattern);
+          if (url) { urls[key] = url; break; }
+        }
+        if (!urls[key]) urls[key] = RELEASES_URL;
+      }
+
+      // Update primary button
+      if (os && primaryBtn) {
+        primaryBtn.href = urls[os] ?? RELEASES_URL;
+      }
+
+      // Update platform links
+      document.querySelectorAll('[data-platform]').forEach(el => {
+        const platform = el.getAttribute('data-platform');
+        if (platform && urls[platform]) {
+          el.href = urls[platform];
+        }
+      });
+
+    } catch {
+      // Fall back to releases page — hrefs already set
+    }
+  }
+
+  initDownload();
+</script>
+
+<style>
+.download {
+  text-align: center;
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+}
+
+.download__header {
+  margin-bottom: 2.5rem;
+}
+
+.download__header .section-subtitle {
+  margin: 0.875rem auto 0;
+}
+
+.download__version-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.375rem 1rem;
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
+}
+
+.download__version-label {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.download__version-num {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Primary CTA */
+.download__primary {
+  margin-bottom: 3.5rem;
+}
+
+.download__main-btn {
+  font-size: 1.125rem;
+  padding: 1.125rem 2.5rem;
+  gap: 0.75rem;
+}
+
+.download__format-badge {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+
+.download__primary-note {
+  margin-top: 0.875rem;
+  font-size: 0.875rem;
+  color: var(--color-text-faint);
+}
+
+/* Platform grid */
+.download__platforms {
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+.download__platforms-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1.5rem;
+}
+
+.download__platform-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.download__platform-group {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  text-align: left;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.download__platform-group:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(79, 126, 247, 0.2);
+}
+
+.download__platform-icon {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.download__platform-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.download__platform-name {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.download__platform-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.download__platform-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--color-primary);
+  font-weight: 500;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition-fast);
+}
+
+.download__platform-link:hover {
+  border-color: var(--color-primary);
+}
+
+.download__ext {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-faint);
+  background: var(--color-surface);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.download__releases-link {
+  margin-top: 0.5rem;
+}
+
+.download__all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.download__all-link:hover {
+  color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+@media (max-width: 640px) {
+  .download__platform-grid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.75rem;
+  }
+}
+</style>

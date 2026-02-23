@@ -1,0 +1,161 @@
+---
+import type { T } from '../i18n/en';
+
+interface Props {
+  t: T;
+}
+
+const { t } = Astro.props;
+---
+
+<section class="section section--surface features" id="features" aria-labelledby="features-title">
+  <div class="container">
+    <div class="features__header reveal">
+      <h2 class="section-title" id="features-title">{t.features.sectionTitle}</h2>
+      <p class="section-subtitle">{t.features.sectionSubtitle}</p>
+    </div>
+
+    <div class="features__list">
+      {t.features.items.map((item, i) => (
+        <div class={`features__item reveal ${i % 2 === 1 ? 'features__item--reversed' : ''}`}>
+          <!-- Screenshot -->
+          <div class="features__screenshot">
+            <div class="app-window">
+              <div class="app-window__titlebar">
+                <span class="app-window__dot app-window__dot--close"></span>
+                <span class="app-window__dot app-window__dot--min"></span>
+                <span class="app-window__dot app-window__dot--max"></span>
+                <span class="features__window-title">{item.title} — Bokuchi</span>
+              </div>
+              <div class="app-window__body">
+                <img
+                  src={item.screenshotSrc}
+                  alt={item.screenshotAlt}
+                  width="960"
+                  height="600"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Text -->
+          <div class="features__text">
+            <div class="features__number" aria-hidden="true">0{i + 1}</div>
+            <h3 class="features__title">{item.title}</h3>
+            <p class="features__desc" set:html={item.description} />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.features__header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.features__header .section-subtitle {
+  margin: 0.875rem auto 0;
+}
+
+.features__list {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.features__item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4rem;
+}
+
+.features__item--reversed {
+  direction: rtl;
+}
+
+.features__item--reversed > * {
+  direction: ltr;
+}
+
+/* Screenshot */
+.features__screenshot {
+  position: relative;
+}
+
+.features__screenshot::before {
+  content: '';
+  position: absolute;
+  inset: -16px;
+  background: linear-gradient(135deg, rgba(79, 126, 247, 0.06), rgba(167, 139, 250, 0.06));
+  border-radius: calc(var(--radius-lg) + 16px);
+  z-index: -1;
+}
+
+.features__window-title {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Text */
+.features__text {
+  padding: 1rem 0;
+}
+
+.features__number {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(79, 126, 247, 0.2);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.04em;
+  font-feature-settings: 'tnum';
+  font-variant-numeric: tabular-nums;
+}
+
+.features__title {
+  font-size: clamp(1.375rem, 2vw, 1.75rem);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.875rem;
+}
+
+.features__desc {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .features__item,
+  .features__item--reversed {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    direction: ltr;
+  }
+
+  .features__item--reversed > * {
+    direction: ltr;
+  }
+
+  .features__text {
+    order: -1;
+  }
+
+  .features__list {
+    gap: 4rem;
+  }
+}
+</style>

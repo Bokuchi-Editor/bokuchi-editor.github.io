@@ -1,0 +1,246 @@
+---
+import type { T } from '../i18n/en';
+
+interface Props {
+  t: T;
+}
+
+const { t } = Astro.props;
+
+const icons = {
+  feather: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>`,
+  lightning: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  globe: `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+};
+
+const cardColors = [
+  { icon: '#4f7ef7', bg: 'rgba(79, 126, 247, 0.08)', border: 'rgba(79, 126, 247, 0.15)' },
+  { icon: '#f59e0b', bg: 'rgba(245, 158, 11, 0.08)', border: 'rgba(245, 158, 11, 0.15)' },
+  { icon: '#10b981', bg: 'rgba(16, 185, 129, 0.08)', border: 'rgba(16, 185, 129, 0.15)' },
+];
+---
+
+<section class="section" id="why" aria-labelledby="why-title">
+  <div class="container">
+    <div class="why__header reveal">
+      <h2 class="section-title" id="why-title">{t.why.sectionTitle}</h2>
+    </div>
+
+    <div class="why__cards">
+      {t.why.cards.map((card, i) => (
+        <div class="why__card reveal" style={`animation-delay: ${i * 0.1}s`}>
+          <div
+            class="why__icon"
+            style={`color: ${cardColors[i].icon}; background: ${cardColors[i].bg}; border-color: ${cardColors[i].border}`}
+            set:html={icons[card.icon as keyof typeof icons]}
+          />
+          <h3 class="why__card-title">{card.title}</h3>
+          <p class="why__card-desc">{card.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Comparison table -->
+    <div class="why__table-wrap reveal">
+      <table class="why__table" aria-label="Comparison with other Markdown editors">
+        <caption class="why__table-caption">
+          {t.lang === 'ja' ? '競合エディタとの比較' : 'How Bokuchi compares'}
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">{t.lang === 'ja' ? '比較項目' : 'Feature'}</th>
+            <th scope="col" class="highlight">Bokuchi</th>
+            <th scope="col">Typora</th>
+            <th scope="col">Obsidian</th>
+            <th scope="col">Mark Text</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{t.lang === 'ja' ? '価格' : 'Price'}</td>
+            <td class="highlight">
+              <span class="check">✓</span> {t.lang === 'ja' ? '無料' : 'Free'}
+            </td>
+            <td>$14.99</td>
+            <td>{t.lang === 'ja' ? '無料（同期は有料）' : 'Free*'}</td>
+            <td>{t.lang === 'ja' ? '無料' : 'Free'}</td>
+          </tr>
+          <tr>
+            <td>{t.lang === 'ja' ? '起動速度' : 'Startup'}</td>
+            <td class="highlight">
+              <span class="check">✓</span> {t.lang === 'ja' ? '高速（Tauri）' : 'Fast (Tauri)'}
+            </td>
+            <td>{t.lang === 'ja' ? '普通' : 'Moderate'}</td>
+            <td>{t.lang === 'ja' ? '普通' : 'Moderate'}</td>
+            <td>{t.lang === 'ja' ? '遅め' : 'Slow'}</td>
+          </tr>
+          <tr>
+            <td>{t.lang === 'ja' ? 'メモリ' : 'Memory'}</td>
+            <td class="highlight">
+              <span class="check">✓</span> {t.lang === 'ja' ? '少ない' : 'Low'}
+            </td>
+            <td>{t.lang === 'ja' ? '普通' : 'Medium'}</td>
+            <td>{t.lang === 'ja' ? '多い' : 'High'}</td>
+            <td>{t.lang === 'ja' ? '多い' : 'High'}</td>
+          </tr>
+          <tr>
+            <td>{t.lang === 'ja' ? '変数システム' : 'Variable System'}</td>
+            <td class="highlight"><span class="check">✓</span></td>
+            <td>—</td>
+            <td>{t.lang === 'ja' ? 'プラグイン' : 'Plugin'}</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>{t.lang === 'ja' ? '多言語UI' : 'Languages'}</td>
+            <td class="highlight">
+              <span class="check">✓</span> 14
+            </td>
+            <td>{t.lang === 'ja' ? '限定的' : 'Limited'}</td>
+            <td>{t.lang === 'ja' ? '英語中心' : 'EN-first'}</td>
+            <td>{t.lang === 'ja' ? '限定的' : 'Limited'}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+.why__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.why__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.why__card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.why__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.why__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.why__card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.625rem;
+  letter-spacing: -0.01em;
+}
+
+.why__card-desc {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+/* Comparison table */
+.why__table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.why__table-caption {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: left;
+  margin-bottom: 1rem;
+  caption-side: top;
+  padding-bottom: 0.75rem;
+}
+
+.why__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  min-width: 560px;
+}
+
+.why__table th,
+.why__table td {
+  padding: 0.875rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.why__table th {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: var(--color-surface);
+}
+
+.why__table th:first-child,
+.why__table td:first-child {
+  font-weight: 500;
+  color: var(--color-text);
+  border-radius: 0;
+}
+
+.why__table .highlight {
+  background: rgba(79, 126, 247, 0.04);
+  color: var(--color-text);
+  font-weight: 600;
+  border-left: 2px solid var(--color-primary);
+}
+
+.why__table th.highlight {
+  color: var(--color-primary);
+  background: rgba(79, 126, 247, 0.06);
+}
+
+.check {
+  color: #10b981;
+  font-weight: 700;
+  margin-right: 0.25rem;
+}
+
+.why__table tbody tr:hover {
+  background: var(--color-surface);
+}
+
+.why__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 900px) {
+  .why__cards {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .why__cards {
+    max-width: 100%;
+  }
+}
+</style>

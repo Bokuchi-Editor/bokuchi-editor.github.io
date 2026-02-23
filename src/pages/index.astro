@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import WhyBokuchi from '../components/WhyBokuchi.astro';
+import Features from '../components/Features.astro';
+import ThemeGallery from '../components/ThemeGallery.astro';
+import Download from '../components/Download.astro';
+import Footer from '../components/Footer.astro';
+import { en } from '../i18n/en';
+---
+
+<Layout t={en}>
+  <Header t={en} />
+  <main>
+    <Hero t={en} />
+    <WhyBokuchi t={en} />
+    <Features t={en} />
+    <ThemeGallery t={en} />
+    <Download t={en} />
+  </main>
+  <Footer t={en} />
+</Layout>
