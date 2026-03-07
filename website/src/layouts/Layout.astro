@@ -27,13 +27,17 @@ const otherUrl = locale === 'en' ? '/ja/' : '/';
     {canonicalURL && <link rel="canonical" href={canonicalURL.toString()} />}
     <!-- OGP -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bokuchi" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL?.toString() ?? Astro.url.href} />
     <meta property="og:image" content={new URL('/og-image.png', Astro.url).toString()} />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:locale" content={locale === 'ja' ? 'ja_JP' : 'en_US'} />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL('/bokuchi-icon.png', Astro.url).toString()} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
