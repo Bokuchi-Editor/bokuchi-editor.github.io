@@ -11,6 +11,6 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  site: 'https://bokuchi-editor.github.io',
+  site: 'https://bokuchi.com',
   integrations: [sitemap()],
 });
