@@ -56,6 +56,7 @@ const otherUrl = locale === 'en' ? '/ja/' : '/';
             <li><a href={locale === 'en' ? '/#themes' : '/ja/#themes'}>{t('nav.themes')}</a></li>
             <li><a href={locale === 'en' ? '/#languages' : '/ja/#languages'}>{t('nav.languages')}</a></li>
             <li><a href={locale === 'en' ? '/#download' : '/ja/#download'}>{t('nav.download')}</a></li>
+            <li><a href="https://doc.bokuchi.com" target="_blank" rel="noopener noreferrer">{t('nav.guide')}</a></li>
             <li><a href="https://github.com/Bokuchi-Editor/bokuchi" target="_blank" rel="noopener noreferrer">{t('nav.github')}</a></li>
           </ul>
         </nav>
@@ -70,6 +71,7 @@ const otherUrl = locale === 'en' ? '/ja/' : '/';
       <div class="container">
         <ul class="footer-links">
           <li><a href="https://github.com/Bokuchi-Editor/bokuchi" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://doc.bokuchi.com" target="_blank" rel="noopener noreferrer">{t('footer.guide')}</a></li>
           <li><a href="https://github.com/Bokuchi-Editor/bokuchi/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">{t('footer.license')}</a></li>
         </ul>
         <span class="lang-switch">
@@ -91,7 +93,7 @@ const otherUrl = locale === 'en' ? '/ja/' : '/';
         const closeBtn = overlay?.querySelector('.lightbox-close');
         if (!overlay || !img) return;
 
-        const selector = '.hero .screenshot img, .feature-row .screenshot img, .theme-item img';
+        const selector = '.hero .screenshot, .feature-row .screenshot img, .theme-item img';
         const open = (src, alt) => {
           img.src = src;
           img.alt = alt || '';

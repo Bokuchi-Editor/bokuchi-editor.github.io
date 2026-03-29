@@ -25,6 +25,11 @@ const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ??
         <h3>{t('why.cross')}</h3>
         <p>{t('why.cross.desc')}</p>
       </div>
+      <div class="why-card">
+        <div class="icon" aria-hidden="true">🔒</div>
+        <h3>{t('why.private')}</h3>
+        <p>{t('why.private.desc')}</p>
+      </div>
     </div>
   </div>
 </section>

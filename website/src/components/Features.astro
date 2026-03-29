@@ -6,12 +6,14 @@ const { locale } = Astro.props;
 const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ?? key;
 
 const features = [
-  { id: 'preview', img: 1, titleKey: 'features.preview', descKey: 'features.preview.desc' },
-  { id: 'tabs', img: 2, titleKey: 'features.tabs', descKey: 'features.tabs.desc', reverse: true },
-  { id: 'variables', img: 3, titleKey: 'features.variables', descKey: 'features.variables.desc' },
-  { id: 'search', img: 4, titleKey: 'features.search', descKey: 'features.search.desc', reverse: true },
-  { id: 'themes', img: 5, titleKey: 'features.themes', descKey: 'features.themes.desc' },
-  { id: 'settings', imgs: ['10-1', '10-2'], titleKey: 'features.settings', descKey: 'features.settings.desc', reverse: true },
+  { id: 'preview', img: '1', titleKey: 'features.preview', descKey: 'features.preview.desc' },
+  { id: 'math', imgs: ['katex', 'mermaid'], titleKey: 'features.math', descKey: 'features.math.desc', reverse: true },
+  { id: 'toolbar', img: 'toolbar', titleKey: 'features.toolbar', descKey: 'features.toolbar.desc' },
+  { id: 'filetree', imgs: ['folder-tree', 'outline'], titleKey: 'features.filetree', descKey: 'features.filetree.desc', reverse: true },
+  { id: 'tabs', img: '2', titleKey: 'features.tabs', descKey: 'features.tabs.desc' },
+  { id: 'variables', img: '3', titleKey: 'features.variables', descKey: 'features.variables.desc', reverse: true },
+  { id: 'search', img: 'cross-tab-search', titleKey: 'features.search', descKey: 'features.search.desc' },
+  { id: 'themes', img: '5', titleKey: 'features.themes', descKey: 'features.themes.desc', reverse: true },
 ] as const;
 ---
 
