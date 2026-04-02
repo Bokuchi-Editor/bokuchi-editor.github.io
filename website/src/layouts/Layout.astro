@@ -1,19 +1,21 @@
 ---
 import '../styles/global.css';
-import { ui, defaultLocale, type Locale } from '../i18n/ui';
+import { ui, defaultLocale, localeLabels, localeToLang, type Locale } from '../i18n/ui';
 
 interface Props {
   title: string;
   description: string;
-  lang: string;
   locale: Locale;
   canonicalURL?: URL;
 }
 
-const { title, description, lang, locale, canonicalURL } = Astro.props;
+const { title, description, locale, canonicalURL } = Astro.props;
+const lang = localeToLang[locale];
 const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ?? key;
-const otherLocale: Locale = locale === 'en' ? 'ja' : 'en';
-const otherUrl = locale === 'en' ? '/ja/' : '/';
+
+const localeToPath = (l: Locale) => l === defaultLocale ? '/' : `/${l}/`;
+const basePath = localeToPath(locale);
+const otherLocales = (Object.keys(localeLabels) as Locale[]).filter(l => l !== locale);
 ---
 
 <html lang={lang}>
@@ -45,19 +47,33 @@ const otherUrl = locale === 'en' ? '/ja/' : '/';
   <body>
     <header class="site-header">
       <div class="container">
-        <a href={locale === 'en' ? '/' : '/ja/'} class="logo">
+        <a href={basePath} class="logo">
           <img src="/bokuchi-icon.png" alt="" class="logo-icon" width="24" height="24" />
           Bokuchi
         </a>
         <nav>
           <ul class="nav-links">
-            <li><a href={locale === 'en' ? '/#why' : '/ja/#why'}>{t('nav.why')}</a></li>
-            <li><a href={locale === 'en' ? '/#features' : '/ja/#features'}>{t('nav.features')}</a></li>
-            <li><a href={locale === 'en' ? '/#themes' : '/ja/#themes'}>{t('nav.themes')}</a></li>
-            <li><a href={locale === 'en' ? '/#languages' : '/ja/#languages'}>{t('nav.languages')}</a></li>
-            <li><a href={locale === 'en' ? '/#download' : '/ja/#download'}>{t('nav.download')}</a></li>
+            <li><a href={`${basePath}#why`}>{t('nav.why')}</a></li>
+            <li><a href={`${basePath}#features`}>{t('nav.features')}</a></li>
+            <li><a href={`${basePath}#themes`}>{t('nav.themes')}</a></li>
+            <li><a href={`${basePath}#languages`}>{t('nav.languages')}</a></li>
+            <li><a href={`${basePath}#download`}>{t('nav.download')}</a></li>
             <li><a href="https://doc.bokuchi.com" target="_blank" rel="noopener noreferrer">{t('nav.guide')}</a></li>
             <li><a href="https://github.com/Bokuchi-Editor/bokuchi" target="_blank" rel="noopener noreferrer">{t('nav.github')}</a></li>
+            <li class="lang-dropdown">
+              <button type="button" class="lang-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                <svg class="lang-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+                {localeLabels[locale]}
+                <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <ul class="lang-dropdown-menu">
+                {(Object.keys(localeLabels) as Locale[]).map(l => (
+                  <li>
+                    <a href={localeToPath(l)} class:list={[{ active: l === locale }]}>{localeLabels[l]}</a>
+                  </li>
+                ))}
+              </ul>
+            </li>
           </ul>
         </nav>
       </div>
@@ -75,7 +91,13 @@ const otherUrl = locale === 'en' ? '/ja/' : '/';
           <li><a href="https://github.com/Bokuchi-Editor/bokuchi/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">{t('footer.license')}</a></li>
         </ul>
         <span class="lang-switch">
-          {t('footer.lang')}: <a href={otherUrl}>{otherLocale === 'en' ? 'English' : '日本語'}</a>
+          {t('footer.lang')}:
+          {otherLocales.map((l, i) => (
+            <>
+              {i > 0 && ' / '}
+              <a href={localeToPath(l)}>{localeLabels[l]}</a>
+            </>
+          ))}
         </span>
       </div>
     </footer>
@@ -119,6 +141,34 @@ const otherUrl = locale === 'en' ? '/ja/' : '/';
         overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
         closeBtn?.addEventListener('click', close);
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+      })();
+    </script>
+
+    <!-- Language dropdown -->
+    <script>
+      (function () {
+        const toggle = document.querySelector('.lang-dropdown-toggle');
+        const menu = document.querySelector('.lang-dropdown-menu');
+        if (!toggle || !menu) return;
+
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const open = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', String(!open));
+          menu.classList.toggle('open', !open);
+        });
+
+        document.addEventListener('click', () => {
+          toggle.setAttribute('aria-expanded', 'false');
+          menu.classList.remove('open');
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            toggle.setAttribute('aria-expanded', 'false');
+            menu.classList.remove('open');
+          }
+        });
       })();
     </script>
   </body>

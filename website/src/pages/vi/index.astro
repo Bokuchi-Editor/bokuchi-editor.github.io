@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import WhyBokuchi from '../../components/WhyBokuchi.astro';
+import Features from '../../components/Features.astro';
+import ThemeGallery from '../../components/ThemeGallery.astro';
+import SupportedLanguages from '../../components/SupportedLanguages.astro';
+import Download from '../../components/Download.astro';
+
+const title = 'Bokuchi - Trình soạn thảo Markdown nhẹ miễn phí cho macOS, Windows & Linux';
+const description = 'Trình soạn thảo Markdown miễn phí, nhanh và nhẹ được xây dựng bằng Tauri và Rust. Xem trước theo thời gian thực, đa tab, hệ thống biến, hỗ trợ 14 ngôn ngữ.';
+---
+
+<Layout
+  title={title}
+  description={description}
+  locale="vi"
+  canonicalURL={new URL(Astro.url.pathname, Astro.site)}
+>
+  <Hero locale="vi" />
+  <WhyBokuchi locale="vi" />
+  <Features locale="vi" />
+  <ThemeGallery locale="vi" />
+  <SupportedLanguages locale="vi" />
+  <Download locale="vi" />
+</Layout>

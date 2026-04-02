@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import WhyBokuchi from '../../components/WhyBokuchi.astro';
+import Features from '../../components/Features.astro';
+import ThemeGallery from '../../components/ThemeGallery.astro';
+import SupportedLanguages from '../../components/SupportedLanguages.astro';
+import Download from '../../components/Download.astro';
+
+const title = 'Bokuchi - 免費輕量級 Markdown 編輯器（macOS / Windows / Linux）';
+const description = '基於 Tauri 和 Rust 建構的免費、快速、輕量級 Markdown 編輯器。即時預覽、多分頁、變數系統，支援 14 種語言。';
+---
+
+<Layout
+  title={title}
+  description={description}
+  locale="zh-hant"
+  canonicalURL={new URL(Astro.url.pathname, Astro.site)}
+>
+  <Hero locale="zh-hant" />
+  <WhyBokuchi locale="zh-hant" />
+  <Features locale="zh-hant" />
+  <ThemeGallery locale="zh-hant" />
+  <SupportedLanguages locale="zh-hant" />
+  <Download locale="zh-hant" />
+</Layout>

@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'ja'],
+    locales: ['en', 'ja', 'zh-cn', 'zh-hant', 'id', 'vi'],
     routing: {
       prefixDefaultLocale: false,
     },
