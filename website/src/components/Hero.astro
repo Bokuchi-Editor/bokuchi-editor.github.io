@@ -9,7 +9,7 @@ const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ??
 <section class="hero section">
   <div class="container">
     <img class="hero-icon" src="/bokuchi-icon.png" alt="Bokuchi" width="96" height="96" />
-    <h1>{t('hero.tagline')}</h1>
+    <h1 set:html={t('hero.tagline')} />
     <p class="sub">{t('hero.sub')}</p>
     <div class="cta">
       <a href="#download" class="btn btn-primary" id="hero-download-btn">
