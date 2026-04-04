@@ -248,7 +248,17 @@ img {
 .hero .sub {
   color: var(--text-muted);
   font-size: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+}
+.hero .badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+.hero .badges img {
+  height: 20px;
 }
 .hero .cta {
   margin-bottom: 2rem;
