@@ -40,6 +40,14 @@ const otherLocales = (Object.keys(localeLabels) as Locale[]).filter(l => l !== l
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL('/bokuchi-icon.png', Astro.url).toString()} />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WJ7GN2VVYK"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WJ7GN2VVYK');
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
@@ -89,6 +97,7 @@ const otherLocales = (Object.keys(localeLabels) as Locale[]).filter(l => l !== l
           <li><a href="https://github.com/Bokuchi-Editor/bokuchi" target="_blank" rel="noopener noreferrer">GitHub</a></li>
           <li><a href="https://doc.bokuchi.com" target="_blank" rel="noopener noreferrer">{t('footer.guide')}</a></li>
           <li><a href="https://github.com/Bokuchi-Editor/bokuchi/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">{t('footer.license')}</a></li>
+          <li><a href={`${basePath}privacy/`}>{t('footer.privacy')}</a></li>
         </ul>
         <span class="lang-switch">
           {t('footer.lang')}:

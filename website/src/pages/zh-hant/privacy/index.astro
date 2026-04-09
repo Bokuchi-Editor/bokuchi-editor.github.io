@@ -1,0 +1,46 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { ui, defaultLocale } from '../../../i18n/ui';
+
+const locale = 'zh-hant';
+const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ?? key;
+
+const title = `${t('privacy.title')} - Bokuchi`;
+const description = 'Bokuchi 網站的隱私政策。';
+---
+
+<Layout title={title} description={description} locale={locale} canonicalURL={new URL(Astro.url.pathname, Astro.site)}>
+  <section class="privacy-policy">
+    <div class="container">
+      <h1>{t('privacy.title')}</h1>
+      <p class="last-updated">{t('privacy.lastUpdated')}</p>
+      <p>{t('privacy.intro')}</p>
+
+      <h2>{t('privacy.analytics.title')}</h2>
+      <p>{t('privacy.analytics.desc')}</p>
+      <ul>
+        <li>{t('privacy.analytics.item1')}</li>
+        <li>{t('privacy.analytics.item2')}</li>
+        <li>{t('privacy.analytics.item3')}</li>
+        <li>{t('privacy.analytics.item4')}</li>
+        <li>{t('privacy.analytics.item5')}</li>
+      </ul>
+      <p set:html={t('privacy.analytics.note')} />
+
+      <h2>{t('privacy.app.title')}</h2>
+      <p>{t('privacy.app.desc')}</p>
+
+      <h2>{t('privacy.cookies.title')}</h2>
+      <p>{t('privacy.cookies.desc')}</p>
+
+      <h2>{t('privacy.thirdparty.title')}</h2>
+      <p>{t('privacy.thirdparty.desc')}</p>
+
+      <h2>{t('privacy.changes.title')}</h2>
+      <p>{t('privacy.changes.desc')}</p>
+
+      <h2>{t('privacy.contact.title')}</h2>
+      <p set:html={t('privacy.contact.desc')} />
+    </div>
+  </section>
+</Layout>
