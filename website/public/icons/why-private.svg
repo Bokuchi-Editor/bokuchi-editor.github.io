@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" data-name="レイヤー 8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .b {
+        fill: #9fa0a0;
+        stroke-linecap: round;
+        stroke-width: 15px;
+      }
+
+      .b, .c {
+        stroke: #595757;
+        stroke-linejoin: round;
+      }
+
+      .c {
+        fill: none;
+        stroke-width: 30px;
+      }
+
+      .d {
+        fill: #595757;
+      }
+    </style>
+  </defs>
+  <rect class="b" x="61.25" y="253.57" width="389.51" height="229.92" rx="49.82" ry="49.82"/>
+  <path class="d" d="M293.35,346.62c0-20.52-16.63-37.15-37.15-37.15s-37.15,16.63-37.15,37.15c0,16.62,10.92,30.69,25.97,35.43l-17.12,54.25h56.61s-17.12-54.25-17.12-54.25c15.05-4.75,25.97-18.81,25.97-35.43Z"/>
+  <path class="c" d="M135.87,254.33v-123.01c0-59.57,53.78-107.87,120.13-107.87h0c66.35,0,120.13,48.29,120.13,107.87v123.01"/>
+</svg>

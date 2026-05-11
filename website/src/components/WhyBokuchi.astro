@@ -11,22 +11,22 @@ const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ??
     <h2 class="section-title">{t('why.title')}</h2>
     <div class="why-cards">
       <div class="why-card">
-        <div class="icon" aria-hidden="true">🪶</div>
+        <img class="icon" src="/icons/why-lightweight.svg" alt="" aria-hidden="true" width="48" height="48" loading="lazy" />
         <h3>{t('why.lightweight')}</h3>
         <p>{t('why.lightweight.desc')}</p>
       </div>
       <div class="why-card">
-        <div class="icon" aria-hidden="true">⚡</div>
+        <img class="icon" src="/icons/why-fast.svg" alt="" aria-hidden="true" width="48" height="48" loading="lazy" />
         <h3>{t('why.fast')}</h3>
         <p>{t('why.fast.desc')}</p>
       </div>
       <div class="why-card">
-        <div class="icon" aria-hidden="true">🌐</div>
+        <img class="icon" src="/icons/why-cross.svg" alt="" aria-hidden="true" width="48" height="48" loading="lazy" />
         <h3>{t('why.cross')}</h3>
         <p>{t('why.cross.desc')}</p>
       </div>
       <div class="why-card">
-        <div class="icon" aria-hidden="true">🔒</div>
+        <img class="icon" src="/icons/why-private.svg" alt="" aria-hidden="true" width="48" height="48" loading="lazy" />
         <h3>{t('why.private')}</h3>
         <p>{t('why.private.desc')}</p>
       </div>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" data-name="地球" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .b {
+        fill: none;
+      }
+
+      .b, .c {
+        stroke: #595757;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 10px;
+      }
+
+      .c {
+        fill: #9fa0a0;
+      }
+    </style>
+  </defs>
+  <circle class="c" cx="256" cy="256" r="228.62"/>
+  <line class="b" x1="27.38" y1="256" x2="484.62" y2="256"/>
+  <line class="b" x1="69.3" y1="126.18" x2="444.21" y2="126.18"/>
+  <line class="b" x1="69.3" y1="385.82" x2="444.21" y2="385.82"/>
+  <line class="b" x1="256" y1="27.38" x2="256" y2="483.85"/>
+  <path class="b" d="M256,484.62s-131.38-21.21-131.38-229.01S256,27.38,256,27.38"/>
+  <path class="b" d="M256,484.62s131.38-21.21,131.38-229.01S256,27.38,256,27.38"/>
+</svg>

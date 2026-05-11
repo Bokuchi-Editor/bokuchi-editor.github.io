@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" data-name="稲妻" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .b {
+        fill: #9fa0a0;
+        stroke: #595757;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 5px;
+      }
+    </style>
+  </defs>
+  <polygon class="b" points="287.11 12.59 77.17 280.04 238.22 278.6 94.23 493.42 407.87 216.05 192.22 220.36 287.11 12.59"/>
+</svg>
