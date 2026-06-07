@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import InkBackground from '../components/InkBackground.astro';
 import { ui, defaultLocale, localeLabels, localeToLang, type Locale } from '../i18n/ui';
 
 interface Props {
@@ -53,6 +54,7 @@ const otherLocales = (Object.keys(localeLabels) as Locale[]).filter(l => l !== l
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <InkBackground />
     <header class="site-header">
       <div class="container">
         <a href={basePath} class="logo">

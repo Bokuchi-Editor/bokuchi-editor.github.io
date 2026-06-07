@@ -1,0 +1,89 @@
+---
+// Page-wide "ink ripple" background (D1-RND).
+// A fixed, full-viewport layer behind the page content. Ripples are spawned at
+// random positions *within the current viewport*, so they only appear where the
+// user is actually looking (the layer follows scroll because it is position:fixed).
+---
+
+<div class="ink-bg" aria-hidden="true"></div>
+
+<style is:global>
+  .ink-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1; /* above body background, behind all page content */
+    overflow: hidden;
+    pointer-events: none;
+    /* neutral, monotone vignette (no color cast) */
+    background: radial-gradient(125% 100% at 50% 42%, #161b21 0%, #0d1117 52%, #080b0f 100%);
+    --ink-ripple-duration: 5s; /* how long a single ring takes to expand & fade */
+  }
+
+  .ink-bg__ring {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    margin: -18px 0 0 -18px; /* center the ring on its (left, top) anchor */
+    border-radius: 50%;
+    /* soft gradient ring: fades in/out across its thickness */
+    background: radial-gradient(circle,
+      rgba(173, 183, 194, 0)    50%,
+      rgba(188, 198, 210, 0.10) 60%,
+      rgba(200, 210, 222, 0.45) 69%,
+      rgba(188, 198, 210, 0.10) 78%,
+      rgba(173, 183, 194, 0)    88%);
+    transform: scale(0);
+    will-change: transform, opacity;
+    animation: inkRippleGrow var(--ink-ripple-duration) ease-out forwards;
+  }
+
+  @keyframes inkRippleGrow {
+    0%   { transform: scale(0);  opacity: 0; }
+    10%  { opacity: .9; }
+    60%  { opacity: .5; }
+    100% { transform: scale(22); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ink-bg__ring { display: none; }
+  }
+</style>
+
+<script>
+  // ── Tunable settings ──────────────────────────────────────────────
+  // Adjust these to fine-tune the ripple effect later.
+  const CONFIG = {
+    rings: 2,          // rings emitted per ripple (the "wavefront")
+    staggerSec: 1,     // delay between each ring within one ripple (seconds)
+    intervalMs: 6000,  // time until the next ripple appears (milliseconds)
+  };
+  // ──────────────────────────────────────────────────────────────────
+
+  const layer = document.querySelector<HTMLElement>('.ink-bg');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function spawnRipple() {
+    if (!layer || document.hidden) return; // skip while tab is hidden
+    // random position within the current viewport (the layer is position:fixed)
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+
+    for (let i = 0; i < CONFIG.rings; i++) {
+      const ring = document.createElement('div');
+      ring.className = 'ink-bg__ring';
+      ring.style.left = x + 'px';
+      ring.style.top = y + 'px';
+      ring.style.animationDelay = i * CONFIG.staggerSec + 's';
+      ring.addEventListener('animationend', () => ring.remove());
+      setTimeout(() => ring.remove(), 9000); // safety cleanup
+      layer.appendChild(ring);
+    }
+  }
+
+  if (layer && !reduce) {
+    spawnRipple();
+    setInterval(spawnRipple, CONFIG.intervalMs);
+  }
+</script>

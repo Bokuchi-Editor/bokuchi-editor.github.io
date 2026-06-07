@@ -6,11 +6,15 @@ const { locale } = Astro.props;
 const t = (key: keyof typeof ui.en) => (ui[locale] ?? ui[defaultLocale])[key] ?? key;
 
 const themes = [
-  { img: 5, key: 'themes.default' },
-  { img: 6, key: 'themes.dark' },
-  { img: 7, key: 'themes.pastel' },
-  { img: 8, key: 'themes.vivid' },
-  { img: 9, key: 'themes.darcula' },
+  { src: '/screenshots/5.png', key: 'themes.default' },
+  { src: '/screenshots/6.png', key: 'themes.dark' },
+  { src: '/screenshots/7.png', key: 'themes.pastel' },
+  { src: '/screenshots/8.png', key: 'themes.vivid' },
+  { src: '/themes-dawn-01.png', key: 'themes.dawn' },
+  { src: '/themes-twilight-01.png', key: 'themes.twilight' },
+  { src: '/themes-silk-01.png', key: 'themes.silk' },
+  { src: '/themes-ink-01.png', key: 'themes.ink' },
+  { src: '/screenshots/9.png', key: 'themes.darcula' },
 ] as const;
 ---
 
@@ -20,7 +24,7 @@ const themes = [
     <div class="theme-grid">
       {themes.map((th) => (
         <div class="theme-item">
-          <img src={`/screenshots/${th.img}.png`} alt={t(th.key)} width="400" height="240" />
+          <img src={th.src} alt={t(th.key)} width="400" height="240" />
           <div class="label">{t(th.key)}</div>
         </div>
       ))}
