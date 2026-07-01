@@ -41,29 +41,60 @@ const RELEASES_URL = `https://github.com/${REPO}/releases`;
     const isMac = /Mac|iPhone|iPad/i.test(ua);
     const isWin = /Windows|Win32/i.test(ua);
     const isLinux = /Linux|X11/i.test(ua) && !/Android/i.test(ua);
+
+    // Best-effort CPU architecture detection (arm64 vs x64).
+    // navigator.userAgentData is the only reliable source in the browser; UA
+    // strings rarely expose arm on Linux, so default to x64 when unknown.
+    let isArm = false;
+    try {
+      if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+        const hints = await navigator.userAgentData.getHighEntropyValues(['architecture']);
+        isArm = /arm/i.test(hints.architecture || '');
+      } else {
+        isArm = /aarch64|arm64/i.test(ua);
+      }
+    } catch (_) {}
+
     let label = t.mac;
     let href = `https://github.com/${REPO}/releases`;
     try {
       const res = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
       const data = await res.json();
       if (data.assets && data.assets.length > 0) {
-        const name = (n) => n.toLowerCase();
-        const macArm = data.assets.find((a) => name(a.name).includes('aarch64') || name(a.name).includes('arm64'));
-        const macIntel = data.assets.find((a) => name(a.name).includes('x64') && name(a.name).includes('darwin'));
-        const macDmg = data.assets.find((a) => name(a.name).endsWith('.dmg'));
-        const winMsi = data.assets.find((a) => name(a.name).endsWith('.msi'));
-        const winExe = data.assets.find((a) => name(a.name).endsWith('.exe'));
-        const linuxApp = data.assets.find((a) => name(a.name).includes('appimage') || name(a.name).includes('.deb'));
-        if (isMac && (macArm || macIntel || macDmg)) href = (macArm || macIntel || macDmg).browser_download_url;
-        else if (isWin && (winMsi || winExe)) {
-          href = (winMsi || winExe).browser_download_url;
+        // Ignore updater/signature/metadata artifacts, keep real installers.
+        const assets = data.assets.filter((a) => {
+          const n = a.name.toLowerCase();
+          return !n.endsWith('.sig') && !n.endsWith('.tar.gz') && !n.endsWith('.json');
+        });
+        const find = (pred) => assets.find((a) => pred(a.name.toLowerCase()));
+        const isArm64Name = (n) => n.includes('arm64') || n.includes('aarch64');
+        const isX64Name = (n) => n.includes('amd64') || n.includes('x86_64') || n.includes('x64');
+
+        let chosen = null;
+        if (isMac) {
+          // The macOS build ships as a universal .dmg (Intel + Apple silicon).
+          label = t.mac;
+          chosen = find((n) => n.endsWith('.dmg'));
+        } else if (isWin) {
           label = t.win;
-        } else if (isLinux && linuxApp) {
-          href = linuxApp.browser_download_url;
+          chosen =
+            find((n) => n.endsWith('.msi')) ||
+            find((n) => n.endsWith('.exe'));
+        } else if (isLinux) {
           label = t.linux;
-        } else if (isMac) label = t.mac;
-        else if (isWin) label = t.win;
-        else if (isLinux) label = t.linux;
+          const isLinuxPkg = (n) =>
+            n.includes('appimage') || n.endsWith('.deb') || n.endsWith('.rpm');
+          if (isArm) {
+            chosen = find((n) => isLinuxPkg(n) && isArm64Name(n));
+          }
+          // Fall back to x64 packages (preferring AppImage) when no arch match.
+          if (!chosen) {
+            chosen =
+              find((n) => n.includes('appimage') && !isArm64Name(n)) ||
+              find((n) => isLinuxPkg(n) && (isX64Name(n) || !isArm64Name(n)));
+          }
+        }
+        if (chosen) href = chosen.browser_download_url;
       }
     } catch (_) {}
     primary.textContent = label;
